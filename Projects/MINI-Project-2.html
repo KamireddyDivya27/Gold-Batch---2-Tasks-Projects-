@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List App - Enhanced</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      padding: 30px;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+
+    .todo-container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="text"] {
+      width: 68%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
+    .add-btn {
+      background-color: #2c3e50;
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 10px;
+      background-color: #f6f8fa;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px #ccc;
+      transition: all 0.3s ease;
+    }
+
+    li.completed span {
+      text-decoration: line-through;
+      color: #999;
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    .actions button {
+      margin-left: 5px;
+      font-size: 13px;
+    }
+
+    .edit {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    .delete {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .filters {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .filters button {
+      margin: 0 6px;
+      background-color: #2980b9;
+      color: white;
+      padding: 10px 12px;
+    }
+
+    .filters .active {
+      background-color: #2c3e50;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      button.add-btn {
+        width: 100%;
+        margin-top: 5px;
+      }
+
+      li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .actions {
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 My Enhanced To-Do App</h2>
+
+  <div class="todo-container">
+    <input type="text" id="todoInput" placeholder="What do you need to do?" />
+    <button class="add-btn" onclick="addTodo()">Add Task</button>
+
+    <ul id="todoList"></ul>
+    <div id="emptyMessage" class="empty-msg"></div>
+
+    <div class="filters">
+      <button class="active" onclick="filterTodos('all')">All</button>
+      <button onclick="filterTodos('active')">Active</button>
+      <button onclick="filterTodos('completed')">Completed</button>
+    </div>
+  </div>
+
+  <script>
+    let todos = [];
+    let currentFilter = "all";
+
+    const renderTodos = () => {
+      const list = document.getElementById("todoList");
+      const message = document.getElementById("emptyMessage");
+      list.innerHTML = "";
+
+      const filtered = todos.filter(todo => {
+        if (currentFilter === "all") return true;
+        if (currentFilter === "active") return !todo.completed;
+        if (currentFilter === "completed") return todo.completed;
+      });
+
+      if (filtered.length === 0) {
+        message.textContent = "🎉 No tasks to show!";
+      } else {
+        message.textContent = "";
+      }
+
+      filtered.forEach((todo, index) => {
+        const li = document.createElement("li");
+        li.className = todo.completed ? "completed" : "";
+        li.innerHTML = `
+          <span onclick="toggleComplete(${index})">${todo.text}</span>
+          <div class="actions">
+            <button class="edit" onclick="editTodo(${index})">Edit</button>
+            <button class="delete" onclick="deleteTodo(${index})">Delete</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+
+      document.querySelectorAll(".filters button").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.textContent.toLowerCase() === currentFilter) {
+          btn.classList.add("active");
+        }
+      });
+    };
+
+    const addTodo = () => {
+      const input = document.getElementById("todoInput");
+      const text = input.value.trim();
+      if (text) {
+        todos.push({ text, completed: false });
+        input.value = "";
+        renderTodos();
+      } else {
+        alert("Please enter a task.");
+      }
+    };
+
+    const toggleComplete = index => {
+      todos[index].completed = !todos[index].completed;
+      renderTodos();
+    };
+
+    const deleteTodo = index => {
+      if (confirm("Delete this task?")) {
+        todos.splice(index, 1);
+        renderTodos();
+      }
+    };
+
+    const editTodo = index => {
+      const newText = prompt("Edit your task:", todos[index].text);
+      if (newText !== null && newText.trim()) {
+        todos[index].text = newText.trim();
+        renderTodos();
+      }
+    };
+
+    const filterTodos = filter => {
+      currentFilter = filter;
+      renderTodos();
+    };
+
+    // Initial load
+    renderTodos();
+  </script>
+
+</body>
+</html>
