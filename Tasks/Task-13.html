@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Objects & Arrays</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .output {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      max-width: 700px;
+    }
+    .output p {
+      font-family: monospace;
+      margin: 10px 0;
+    }
+    .label {
+      color: #2980b9;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Objects & Arrays</h2>
+  <div class="output" id="results"></div>
+
+  <script>
+    const results = document.getElementById('results');
+
+    function display(label, result) {
+      const p = document.createElement('p');
+      p.innerHTML = `<span class="label">${label}:</span> ${result}`;
+      results.appendChild(p);
+      console.log(`${label}:`, result);
+    }
+
+    // 1. Create object for animal and car
+    const animal = {
+      name: "Tiger",
+      habitat: "Forest",
+      carnivore: true
+    };
+
+    const car = {
+      brand: "Toyota",
+      model: "Camry",
+      year: 2022
+    };
+
+    display("Animal Object", JSON.stringify(animal));
+    display("Car Object", JSON.stringify(car));
+
+    // 2. Find duplicates in a string (optional)
+    const dupStr = "programming";
+    const charArray = dupStr.split('');
+    const duplicates = charArray.filter((item, index) => charArray.indexOf(item) !== index && charArray.lastIndexOf(item) === index);
+    display("Duplicate characters (optional)", [...new Set(duplicates)].join(', '));
+
+    // 3. Reverse a string using array method
+    const originalString = "javascript";
+    const reversed = originalString.split('').reverse().join('');
+    display("Reversed String", reversed);
+
+    // 4. Find highest and lowest in array
+    const numbers = [45, 2, 89, 32, 7, 100];
+    const highest = Math.max(...numbers);
+    const lowest = Math.min(...numbers);
+    display("Highest Number", highest);
+    display("Lowest Number", lowest);
+
+    // 5. Sorting of array (optional)
+    const sorted = [...numbers].sort((a, b) => a - b);
+    display("Sorted Array (optional)", sorted.join(', '));
+
+    // 6. Display first 3 elements in UI
+    const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+    const firstThree = fruits.slice(0, 3);
+    display("First 3 Fruits (UI)", firstThree.join(', '));
+
+    // 7. Remove 4th (index) element and add 2 elements there
+    const modifiedFruits = [...fruits]; // clone
+    modifiedFruits.splice(3, 1, "Dragonfruit", "Fig"); // remove 4th and insert two
+    display("Modified Fruits (After Splice)", modifiedFruits.join(', '));
+
+  </script>
+
+</body>
+</html>

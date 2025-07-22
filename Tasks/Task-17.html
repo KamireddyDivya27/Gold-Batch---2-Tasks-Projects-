@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 17 – DOM, BOM, Hoisting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 250px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .card h3 {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #2c3e50;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>DOM: Display 3 Cards in a Row</h2>
+  <div class="card-container" id="cardRow"></div>
+
+  <script>
+    // Task 17: Dynamically create and display 3 cards using JS
+
+    const cardData = [
+      {
+        title: "Pizza",
+        desc: "Delicious cheesy pizza with toppings.",
+        img: "https://ooni.com/cdn/shop/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?v=1737104576&width=1080"
+      },
+      {
+        title: "Burger",
+        desc: "Juicy burger with fresh veggies.",
+        img: "https://media.istockphoto.com/id/1309352410/photo/cheeseburger-with-tomato-and-lettuce-on-wooden-board.jpg?s=612x612&w=0&k=20&c=lfsA0dHDMQdam2M1yvva0_RXfjAyp4gyLtx4YUJmXgg="
+      },
+      {
+        title: "Ice Cream",
+        desc: "Cool dessert to refresh your mood.",
+        img: "https://c4.wallpaperflare.com/wallpaper/177/901/134/chocolate-ice-cream-dessert-waffles-wallpaper-preview.jpg"
+      }
+    ];
+
+    const container = document.getElementById("cardRow");
+
+    cardData.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.title}" />
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+      `;
+
+      container.appendChild(card);
+    });
+
+    // BONUS – Hoisting Demo
+    displayMessage();
+    function displayMessage() {
+      console.log("✅ This function was hoisted!");
+    }
+
+    // BOM Example (Alert after 1 second)
+    setTimeout(() => {
+      // alert("🧠 This is an example of BOM (setTimeout)!");
+      console.log("⏰ BOM: setTimeout executed.");
+    }, 1000);
+  </script>
+
+</body>
+</html>

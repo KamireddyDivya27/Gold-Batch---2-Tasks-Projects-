@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 19 – Async API, Callbacks, this</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    #movieContainer {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      padding: 10px;
+      width: 200px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    #output {
+      margin-top: 20px;
+      background: #e1f5fe;
+      padding: 10px;
+      border-left: 4px solid #0288d1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎬 Movie API & Callback Function</h2>
+
+  <!-- 1. Async API Movie Cards -->
+  <button onclick="fetchMovies()">🎥 Load Movies</button>
+  <div id="movieContainer"></div>
+
+  <hr>
+
+  <!-- 2. Callback function -->
+  <h3>👤 User Input with Callback</h3>
+  <input type="text" id="userInput" placeholder="Enter your name" />
+  <button onclick="processUserData()">Submit</button>
+  <div id="output"></div>
+
+  <script>
+    // Part 1: Async API call using fetch
+    async function fetchMovies() {
+      const url = 'https://api.tvmaze.com/search/shows?q=batman'; // Open Movie API
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayMovies(data);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    }
+
+    function displayMovies(movies) {
+      const container = document.getElementById("movieContainer");
+      container.innerHTML = "";
+
+      movies.slice(0, 3).forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.show.image ? item.show.image.medium : 'https://via.placeholder.com/200x250'}" />
+          <h4>${item.show.name}</h4>
+          <p>${item.show.language}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Part 2: Callback Function
+    function getUserData(callback) {
+      const input = document.getElementById("userInput").value;
+      if (input.trim() !== "") {
+        callback(input);
+      } else {
+        alert("Please enter a name.");
+      }
+    }
+
+    function processUserData() {
+      getUserData(function(name) {
+        document.getElementById("output").innerText = `Hello, ${name}! 👋 This message came from a callback.`;
+      });
+    }
+
+    // Bonus – this keyword example with object
+    const person = {
+      name: "Divya",
+      greet: function() {
+        console.log("Inside greet():", this.name); // Logs "Divya"
+      }
+    };
+    person.greet(); // Call to show `this` in action
+
+  </script>
+</body>
+</html>

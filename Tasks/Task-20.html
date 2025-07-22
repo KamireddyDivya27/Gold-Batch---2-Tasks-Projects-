@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 20 – Advanced JS (ES6)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    .result {
+      background-color: #fff;
+      padding: 15px;
+      border-left: 4px solid #2980b9;
+      margin-bottom: 15px;
+      box-shadow: 0 0 5px #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ES6 Advanced JavaScript</h2>
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById('output');
+    const log = (title, value) => {
+      const div = document.createElement('div');
+      div.className = 'result';
+      div.innerHTML = `<strong>${title}:</strong><br>${value}`;
+      output.appendChild(div);
+    };
+
+    // 1. First element in array > 20
+    const nums = [5, 12, 29, 7, 40];
+    const firstGreaterThan20 = nums.find(n => n > 20);
+    log("1️⃣ First element > 20", firstGreaterThan20);
+
+    // 2. First element in array < 20
+    const firstLessThan20 = nums.find(n => n < 20);
+    log("2️⃣ First element < 20", firstLessThan20);
+
+    // 3. Filter by id in object array
+    const users = [
+      { id: 101, name: "Divya" },
+      { id: 202, name: "Neha" },
+      { id: 303, name: "Kiran" }
+    ];
+    const filteredUser = users.filter(u => u.id === 202);
+    log("3️⃣ Filter by ID (id = 202)", JSON.stringify(filteredUser));
+
+    // 4. Check odd or even in array
+    const checkArray = [90, 89, 56, 45];
+    const oddEven = checkArray.map(n => `${n} is ${n % 2 === 0 ? "Even" : "Odd"}`);
+    log("4️⃣ Odd or Even", oddEven.join("<br>"));
+
+    // 5. Book class
+    class Book {
+      constructor(pages, pageType, author) {
+        this.pages = pages;
+        this.pageType = pageType;
+        this.author = author;
+      }
+
+      type_of_book = () => this.pages > 200 ? "Novel" : "Story Book";
+    }
+
+    const myBook = new Book(320, "Glossy", "R.K. Narayan");
+    log("5️⃣ Book Class",
+        `Type: ${myBook.type_of_book()}<br>` +
+        `Pages: ${myBook.pages}<br>` +
+        `Page Type: ${myBook.pageType}<br>` +
+        `Author: ${myBook.author}`);
+
+    // 6. Animal class
+    class Animal {
+      constructor(name, gender, disease) {
+        this.name = name;
+        this.gender = gender;
+        this.disease = disease;
+      }
+
+      walk = () => `${this.name} is walking`;
+      eat = () => `${this.name} is eating`;
+      climb = () => `${this.name} is climbing`;
+    }
+
+    const monkey = new Animal("Monkey", "Male", "None");
+    log("6️⃣ Animal Class",
+        `${monkey.walk()}<br>` +
+        `${monkey.eat()}<br>` +
+        `${monkey.climb()}<br>` +
+        `Gender: ${monkey.gender}<br>` +
+        `Disease: ${monkey.disease}`);
+  </script>
+
+</body>
+</html>

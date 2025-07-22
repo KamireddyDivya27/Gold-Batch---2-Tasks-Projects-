@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 12 - String Methods & Coercion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .output {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      max-width: 700px;
+    }
+    .output p {
+      font-family: monospace;
+      margin: 10px 0;
+    }
+    .label {
+      color: #e67e22;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>String Operations & Implicit Coercion</h2>
+  <div class="output" id="results"></div>
+
+  <script>
+    const results = document.getElementById('results');
+
+    function display(label, result) {
+      const p = document.createElement('p');
+      p.innerHTML = `<span class="label">${label}:</span> ${result}`;
+      results.appendChild(p);
+      console.log(`${label}:`, result);
+    }
+
+    // 1. Extract first five letters from a string
+    const str1 = ' gfuh ieiuei ';
+    display("First 5 characters", str1.trim().substring(0, 5));
+
+    // 2. Get the length of a string and make it uppercase
+    const str2 = 'hduej dij';
+    display("Uppercase", str2.toUpperCase());
+    display("Length", str2.length);
+
+    // 3. Make lowercase and trim a string
+    const str3 = ' biji jdo ';
+    display("Lowercase & Trimmed", str3.toLowerCase().trim());
+
+    // 4. Replace specified word in a string
+    const original = 'Hello friend, welcome!';
+    const replaced = original.replace('friend', 'Divya');
+    display("Replaced String", replaced);
+
+    // 5. Implicit Coercion Statement
+    const coercionExample = 89 + 'hello' + 90 / 9;
+    display("Implicit Coercion (89 + 'hello' + 90 / 9)", coercionExample);
+  </script>
+
+</body>
+</html>

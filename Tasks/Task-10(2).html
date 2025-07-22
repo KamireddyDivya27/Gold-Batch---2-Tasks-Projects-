@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 10B - Exact Box Sizes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .bar {
+      width: 350px;
+      height: 60px;
+      background-color: green;
+      margin: 15px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .box {
+      width: 80px;
+      height: 80px;
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Rectangle -->
+  <div class="bar"></div>
+
+  <!-- 8 Green Squares -->
+  <div class="grid">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+  </div>
+
+  <!-- Bottom Rectangle -->
+  <div class="bar"></div>
+
+</body>
+</html>

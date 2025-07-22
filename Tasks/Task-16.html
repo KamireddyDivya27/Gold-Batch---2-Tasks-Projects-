@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 16 – Loops</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .output {
+      background: #fff;
+      padding: 15px;
+      border-left: 4px solid #2c3e50;
+      margin: 10px 0;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Loops</h2>
+  <div id="results"></div>
+
+  <script>
+    const results = document.getElementById("results");
+
+    function display(label, value) {
+      const div = document.createElement("div");
+      div.className = "output";
+      div.innerHTML = `<strong>${label}:</strong> ${value}`;
+      results.appendChild(div);
+    }
+
+    // 1. Display even numbers up to n
+    const n = parseInt(prompt("Enter a number to display even numbers up to n:"));
+    let evenNumbers = [];
+    for (let i = 1; i <= n; i++) {
+      if (i % 2 === 0) evenNumbers.push(i);
+    }
+    display("1️⃣ Even numbers up to " + n, evenNumbers.join(", "));
+
+    // 2. Check if input character is vowel or consonant
+    const char = prompt("Enter a single character to check vowel or consonant:").toLowerCase();
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    const type = vowels.includes(char) ? "✅ Vowel" : "❌ Consonant";
+    display("2️⃣ '" + char + "' is a", type);
+
+    // 3. Count even and odd numbers from 1 to 999
+    let evenCount = 0, oddCount = 0;
+    for (let i = 1; i <= 999; i++) {
+      (i % 2 === 0) ? evenCount++ : oddCount++;
+    }
+    display("3️⃣ Even count (1-999)", evenCount);
+    display("3️⃣ Odd count (1-999)", oddCount);
+
+    // 4. Count occurrence of a character in string using loop
+    const text = "hello";
+    const searchChar = 'l';
+    let count = 0;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === searchChar) count++;
+    }
+    display("4️⃣ Occurrence of 'l' in 'hello'", count);
+
+    // 5. Sum and Average of array elements
+    const arr = [1, 9, 8];
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+    const avg = sum / arr.length;
+    display("5️⃣ Array Elements", arr.join(", "));
+    display("5️⃣ Sum", sum);
+    display("5️⃣ Average", avg.toFixed(2));
+
+    // 6. Largest number in an array using loop
+    const numbers = [23, 89, 12, 99, 45];
+    let largest = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+      if (numbers[i] > largest) largest = numbers[i];
+    }
+    display("6️⃣ Largest number in [23, 89, 12, 99, 45]", largest);
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 15 – Conditional Statements</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #eef2f7;
+    }
+    input, button {
+      margin: 8px 0;
+      padding: 6px;
+      width: 200px;
+    }
+    .output {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: white;
+      border-left: 4px solid #3498db;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Conditional Statements</h2>
+
+  <!-- 1. Multiple of 3 -->
+  <div>
+    <h4>1️⃣ Check if a number is a multiple of 3</h4>
+    <input type="number" id="numCheck" placeholder="Enter number" />
+    <button onclick="checkMultipleOf3()">Check</button>
+    <div class="output" id="output1"></div>
+  </div>
+
+  <!-- 2. Subword check -->
+  <div>
+    <h4>2️⃣ Check if a sub-word exists in string</h4>
+    <input type="text" id="mainText" placeholder="Main string" />
+    <input type="text" id="subWord" placeholder="Word to search" />
+    <button onclick="checkSubWord()">Search</button>
+    <div class="output" id="output2"></div>
+  </div>
+
+  <!-- 3. Calculate Complex Interest -->
+  <div>
+    <h4>3️⃣ Calculate Complex Interest ((p / r) * t / 100)</h4>
+    <input type="number" id="principal" placeholder="Principal (P)" />
+    <input type="number" id="rate" placeholder="Rate (R)" />
+    <input type="number" id="time" placeholder="Time (T)" />
+    <button onclick="calculateInterest()">Calculate</button>
+    <div class="output" id="output3"></div>
+  </div>
+
+  <script>
+    // Task 1: Check if number is multiple of 3
+    function checkMultipleOf3() {
+      const num = parseInt(document.getElementById("numCheck").value);
+      const result = (num % 3 === 0) ? "✅ It is a multiple of 3." : "❌ Not a multiple of 3.";
+      document.getElementById("output1").innerText = result;
+    }
+
+    // Task 2: Check subword in string
+    function checkSubWord() {
+      const main = document.getElementById("mainText").value.toLowerCase();
+      const word = document.getElementById("subWord").value.toLowerCase();
+      const result = main.includes(word) ? `✅ Yes, '${word}' exists.` : `❌ No, '${word}' not found.`;
+      document.getElementById("output2").innerText = result;
+    }
+
+    // Task 3: Calculate complex interest ((p / r) * t) / 100
+    function calculateInterest() {
+      const p = parseFloat(document.getElementById("principal").value);
+      const r = parseFloat(document.getElementById("rate").value);
+      const t = parseFloat(document.getElementById("time").value);
+
+      if (isNaN(p) || isNaN(r) || isNaN(t) || r === 0) {
+        document.getElementById("output3").innerText = "❌ Please enter valid numbers and rate must not be zero.";
+        return;
+      }
+
+      const interest = ((p / r) * t) / 100;
+      document.getElementById("output3").innerText = `💰 Complex Interest = ${interest.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
